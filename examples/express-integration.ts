@@ -8,7 +8,7 @@ logger.addTransport(new FileTransport("./logs/express-app.log"));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use((req, res, next) => {
+app.use((req: any, res: any, next: any) => {
   const startTime = process.hrtime();
 
   res.on("finish", () => {
@@ -31,11 +31,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
+app.get("/", (req: any, res: any, next: any) => {
   res.send("Hello, Express!");
 });
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: any, res: any, next: any) => {
   logger.error("Unhandled exception", { error: err.message });
   res.status(500).send("Something went wrong");
 });
