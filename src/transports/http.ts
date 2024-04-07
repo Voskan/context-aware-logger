@@ -28,13 +28,14 @@ export class HttpTransport implements LoggerTransport {
   /**
    * Asynchronously sends the log to the server.
    * @param message - Log message.
+   * @param level - Log level
    */
-  async log(message: string): Promise<void> {
+  async log(message: string, level: string): Promise<void> {
     try {
       const response = await fetch(this.endpoint, {
         method: this.method,
         headers: this.headers,
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, level }),
       });
 
       if (!response.ok) {

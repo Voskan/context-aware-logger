@@ -17,14 +17,20 @@ export class FileTransport implements LoggerTransport {
   }
 
   /**
-   * Asynchronously writes a log message to a file.
+   * Asynchronously writes a log message to a file, ensuring the file is created if it does not exist.
    * @param message - Log message.
+   * @param level - Log level
    */
-  async log(message: string): Promise<void> {
+  async log(message: string, level: string): Promise<void> {
     try {
-      const formattedMessage = formatMessage(message);
+      const formattedMessage = formatMessage(message, level);
 
-      await fs.appendFile(this.filePath, formattedMessage + "\n", "utf8");
+      // Ensure the file is opened for appending, which creates the file if it does not exist.
+      const fileHandle = await fs.open(this.filePath, "a");
+      await fs.appendFile(fileHandle, formattedMessage + "\n", "utf8");
+
+      // It's important to close the file handle after operations are complete to free up resources.
+      await fileHandle.close();
     } catch (error) {
       console.error(`Error writing to log file:`, error);
     }
