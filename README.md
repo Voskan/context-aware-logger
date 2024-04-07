@@ -1,4 +1,4 @@
-# context-aware-logger
+# @voskan/context-aware-logger
 
 A flexible and context-aware logging module for Node.js applications, providing powerful logging capabilities with enriched context information like timestamps, request IDs, and custom data. Supports multiple transports including console, file, and HTTP, making it ideal for both development and production environments.
 
@@ -12,10 +12,10 @@ A flexible and context-aware logging module for Node.js applications, providing 
 
 ## Installation
 
-Install `context-aware-logger` using npm:
+Install `@voskan/context-aware-logger` using npm:
 
 ```bash
-npm install context-aware-logger
+npm install @voskan/context-aware-logger
 ```
 
 ## Advanced Usage Examples
@@ -29,7 +29,7 @@ This section covers more advanced usage scenarios, including using different tra
 To log messages to a specific file:
 
 ```typescript
-import { Logger, FileTransport } from "context-aware-logger";
+import { Logger, FileTransport } from "@voskan/context-aware-logger";
 
 const logger = new Logger();
 logger.addTransport(new FileTransport("./logs/app.log"));
@@ -42,7 +42,7 @@ logger.info("Logging message to a file");
 To send log messages to a remote logging service:
 
 ```typescript
-import { Logger, HttpTransport } from "context-aware-logger";
+import { Logger, HttpTransport } from "@voskan/context-aware-logger";
 
 const logger = new Logger();
 logger.addTransport(new HttpTransport("http://your-logging-endpoint.com/logs"));
@@ -58,7 +58,7 @@ Integrating with Express to log all incoming requests and errors:
 
 ```typescript
 import express from "express";
-import { Logger, ConsoleTransport } from "context-aware-logger";
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
 
 const app = express();
 const logger = new Logger();
@@ -85,7 +85,7 @@ For Koa, you can create a simple logging middleware to log each request:
 
 ```typescript
 import Koa from "koa";
-import { Logger, ConsoleTransport } from "context-aware-logger";
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
 
 const app = new Koa();
 const logger = new Logger();
@@ -107,7 +107,7 @@ To integrate with Fastify and log all incoming requests:
 
 ```typescript
 import Fastify from "fastify";
-import { Logger, ConsoleTransport } from "context-aware-logger";
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger;
 
 const fastify = Fastify();
 const logger = new Logger();
@@ -143,7 +143,7 @@ import {
   Injectable,
   NestMiddleware,
 } from "@nestjs/common";
-import { Logger, ConsoleTransport } from "context-aware-logger";
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { Request, Response, NextFunction } from "express";
 
@@ -176,4 +176,4 @@ class AppModule implements NestModule {
 }
 ```
 
-These examples showcase how context-aware-logger can be easily integrated into applications built with Fastify NestJS, Express.js and Koa, providing consistent and flexible logging capabilities across different Node.js frameworks.
+These examples showcase how @voskan/context-aware-logger can be easily integrated into applications built with Fastify NestJS, Express.js and Koa, providing consistent and flexible logging capabilities across different Node.js frameworks.
