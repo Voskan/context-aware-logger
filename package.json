@@ -1,6 +1,6 @@
 {
   "name": "@voskan/context-aware-logger",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A flexible and context-aware logging module for Node.js applications. It supports multiple transports (console, file, HTTP), and enriches log messages with contextual information like timestamps, request IDs, and custom data. Ideal for both development and production use. Easy to integrate with Express, Koa, and other frameworks.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
