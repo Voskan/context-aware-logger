@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateBaseContext = exports.enrichContext = exports.formatMessage = exports.HttpTransport = exports.FileTransport = exports.ConsoleTransport = exports.Logger = void 0;
+exports.createLoggerMiddleware = exports.generateBaseContext = exports.enrichContext = exports.formatMessage = exports.HttpTransport = exports.FileTransport = exports.ConsoleTransport = exports.Logger = void 0;
 var logger_1 = require("./logger");
 Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return logger_1.Logger; } });
 var console_1 = require("./transports/console");
@@ -14,3 +14,5 @@ Object.defineProperty(exports, "formatMessage", { enumerable: true, get: functio
 var context_1 = require("./utils/context");
 Object.defineProperty(exports, "enrichContext", { enumerable: true, get: function () { return context_1.enrichContext; } });
 Object.defineProperty(exports, "generateBaseContext", { enumerable: true, get: function () { return context_1.generateBaseContext; } });
+var universalLoggerMiddleware_1 = require("./middleware/universalLoggerMiddleware");
+Object.defineProperty(exports, "createLoggerMiddleware", { enumerable: true, get: function () { return universalLoggerMiddleware_1.createLoggerMiddleware; } });
