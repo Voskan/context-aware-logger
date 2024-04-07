@@ -1,5 +1,6 @@
 import { LoggerTransport, LogLevel } from "../utils/types";
 import { formatMessage } from "../utils/formatter";
+import { colorize } from "../utils/colors";
 
 /**
  * ConsoleTransport - class for outputting logs to the console.
@@ -15,13 +16,16 @@ export class ConsoleTransport implements LoggerTransport {
 
     switch (level) {
       case "error":
-        console.error(formattedMessage);
+        console.error(colorize("red", formattedMessage));
         break;
       case "warn":
-        console.warn(formattedMessage);
+        console.warn(colorize("yellow", formattedMessage));
+        break;
+      case "info":
+        console.log(colorize("blue", formattedMessage));
         break;
       case "debug":
-        console.debug(formattedMessage);
+        console.log(colorize("magenta", formattedMessage));
         break;
       default:
         console.log(formattedMessage);
