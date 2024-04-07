@@ -1,14 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+// import express from "express"; // install and import
 const index_1 = require("../src/index");
 const logger = new index_1.Logger();
 logger.addTransport(new index_1.ConsoleTransport());
 logger.addTransport(new index_1.FileTransport("./logs/express-app.log"));
-const app = (0, express_1.default)();
+const app = {}; // const app = express() // - after install change this
 const PORT = process.env.PORT || 3000;
 app.use((req, res, next) => {
     const startTime = process.hrtime();

@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run clean && tsc",
     "clean": "del ./build/*",
-    "pub": "git add . && git commit -m 'publish' && npm version patch && npm run build && npm publish",
+    "pub": "git add . && git commit -m 'publish' && npm version patch && npm run build && npm publish --access public",
     "test": "jest"
   },
   "repository": {
