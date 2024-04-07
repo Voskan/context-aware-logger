@@ -12,7 +12,7 @@ A flexible and context-aware logging module for Node.js applications, providing 
 
 ## Installation
 
-Install `@voskan/context-aware-logger` using npm:
+Install `@voskan/context-aware-logger` using npm or yarn:
 
 ```bash
 npm install @voskan/context-aware-logger
@@ -50,7 +50,7 @@ logger.addTransport(new HttpTransport("http://your-logging-endpoint.com/logs"));
 logger.error("Sending an error log to the remote server");
 ```
 
-### Framework Integrations
+## Framework Integrations
 
 #### Express
 
@@ -176,4 +176,92 @@ class AppModule implements NestModule {
 }
 ```
 
-These examples showcase how @voskan/context-aware-logger can be easily integrated into applications built with Fastify NestJS, Express.js and Koa, providing consistent and flexible logging capabilities across different Node.js frameworks.
+## Universal Logger Middleware
+
+The @voskan/context-aware-logger package also includes a universal middleware that can be integrated with various Node.js web frameworks to automatically log requests and responses. This middleware enriches the logs with request details and supports logging for different transports based on your configuration.
+
+### Creating the Middleware
+
+First, ensure you have created a logger instance and added your desired transports (console, file, HTTP, etc.).
+
+```typescript
+import {
+  Logger,
+  ConsoleTransport,
+  FileTransport,
+} from "@voskan/context-aware-logger";
+
+const logger = new Logger();
+logger.addTransport(new ConsoleTransport());
+logger.addTransport(new FileTransport("./logs/app.log"));
+```
+
+### Integrating with Web Frameworks
+
+Below are examples of how to integrate the logging middleware into different Node.js frameworks.
+
+#### Express
+
+```typescript
+import express from "express";
+import { createLoggerMiddleware } from "@voskan/context-aware-logger";
+
+const app = express();
+app.use(createLoggerMiddleware(logger));
+
+app.get("/", (req, res) => res.send("Hello World!"));
+
+app.listen(3000, () => console.log("Server started on port 3000"));
+```
+
+#### Koa
+
+For Koa, wrap the middleware to adapt it to Koa's middleware signature.
+
+```typescript
+import Koa from "koa";
+import { createLoggerMiddleware } from "@voskan/context-aware-logger";
+
+const app = new Koa();
+
+// Koa middleware adapter
+app.use((ctx, next) =>
+  createLoggerMiddleware(logger)(ctx.request, ctx.response, next)
+);
+
+app.use((ctx) => (ctx.body = "Hello Koa"));
+
+app.listen(3000, () => console.log("Koa server started on port 3000"));
+```
+
+#### Fastify
+
+For Fastify, use the middleware within a hook or a plugin.
+
+```typescript
+import Fastify from "fastify";
+import { createLoggerMiddleware } from "@voskan/context-aware-logger";
+
+const fastify = Fastify();
+
+fastify.addHook("onRequest", async (request, reply) =>
+  createLoggerMiddleware(logger)(request.raw, reply.raw, () => {})
+);
+
+fastify.get("/", async (request, reply) => {
+  return { hello: "world" };
+});
+
+fastify.listen(3000, (err) => {
+  if (err) throw err;
+  console.log("Server listening on port 3000");
+});
+```
+
+### Error Handling
+
+The middleware automatically logs request and response information. To log errors, ensure you have error-handling middleware set up in your application that logs the errors using the same logger instance.
+
+#
+
+These examples showcase how @voskan/context-aware-logger can be easily integrated into applications built with Fastify, NestJS, Express.js and Koa, providing consistent and flexible logging capabilities across different Node.js frameworks.

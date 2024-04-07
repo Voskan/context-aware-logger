@@ -10,8 +10,6 @@ exports.formatMessage = void 0;
  * @returns Formatted log message.
  */
 function formatMessage(message, level, context) {
-    // Ensure timestamp is always present
-    const timestamp = (context === null || context === void 0 ? void 0 : context.timestamp) || new Date().toISOString();
     // Prepare additional context excluding the timestamp and level for cleaner output
     const additionalContext = Object.assign({}, context);
     delete additionalContext.timestamp;
@@ -25,6 +23,6 @@ function formatMessage(message, level, context) {
             .join(", ");
         contextString = ` {${contextString}}`;
     }
-    return `[${timestamp}] [${level.toUpperCase()}] ${message}${contextString}`;
+    return `[${level.toUpperCase()}] ${message}${contextString}`;
 }
 exports.formatMessage = formatMessage;

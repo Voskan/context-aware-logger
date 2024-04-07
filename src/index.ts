@@ -8,3 +8,4 @@ export { LogLevel, LoggerTransport, LogContext } from "./utils/types";
 
 export { formatMessage } from "./utils/formatter";
 export { enrichContext, generateBaseContext } from "./utils/context";
+export { createLoggerMiddleware } from "./middleware/universalLoggerMiddleware";
