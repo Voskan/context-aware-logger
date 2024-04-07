@@ -1,11 +1,11 @@
-import express from "express";
+// import express from "express"; // install and import
 import { Logger, ConsoleTransport, FileTransport } from "../src/index";
 
 const logger = new Logger();
 logger.addTransport(new ConsoleTransport());
 logger.addTransport(new FileTransport("./logs/express-app.log"));
 
-const app = express();
+const app = {} as any; // const app = express() // - after install change this
 const PORT = process.env.PORT || 3000;
 
 app.use((req: any, res: any, next: any) => {

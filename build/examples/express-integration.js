@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     });
     next();
 });
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
     res.send("Hello, Express!");
 });
 app.use((err, req, res, next) => {
