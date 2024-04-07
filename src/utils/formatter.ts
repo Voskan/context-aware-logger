@@ -13,9 +13,6 @@ export function formatMessage(
   level: string,
   context?: LogContext
 ): string {
-  // Ensure timestamp is always present
-  const timestamp = context?.timestamp || new Date().toISOString();
-
   // Prepare additional context excluding the timestamp and level for cleaner output
   const additionalContext = { ...context };
   delete additionalContext.timestamp;
@@ -31,5 +28,5 @@ export function formatMessage(
     contextString = ` {${contextString}}`;
   }
 
-  return `[${timestamp}] [${level.toUpperCase()}] ${message}${contextString}`;
+  return `[${level.toUpperCase()}] ${message}${contextString}`;
 }

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConsoleTransport = void 0;
 const formatter_1 = require("../utils/formatter");
+const colors_1 = require("../utils/colors");
 /**
  * ConsoleTransport - class for outputting logs to the console.
  */
@@ -15,13 +16,16 @@ class ConsoleTransport {
         const formattedMessage = (0, formatter_1.formatMessage)(message, level);
         switch (level) {
             case "error":
-                console.error(formattedMessage);
+                console.error((0, colors_1.colorize)("red", formattedMessage));
                 break;
             case "warn":
-                console.warn(formattedMessage);
+                console.warn((0, colors_1.colorize)("yellow", formattedMessage));
+                break;
+            case "info":
+                console.log((0, colors_1.colorize)("blue", formattedMessage));
                 break;
             case "debug":
-                console.debug(formattedMessage);
+                console.log((0, colors_1.colorize)("magenta", formattedMessage));
                 break;
             default:
                 console.log(formattedMessage);
