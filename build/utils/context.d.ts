@@ -3,13 +3,15 @@
  */
 export interface LogContext {
     timestamp?: string;
+    correlationId?: string;
     [key: string]: any;
 }
 /**
  * Generates a basic log context.
+ * @param correlationId Optional correlation Id
  * @returns Basic log context.
  */
-export declare function generateBaseContext(): LogContext;
+export declare function generateBaseContext(correlationId?: string): LogContext;
 /**
  * Enriches the log context with user data.
  * @param context The base or current log context.

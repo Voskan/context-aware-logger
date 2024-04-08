@@ -3,11 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.enrichContext = exports.generateBaseContext = void 0;
 /**
  * Generates a basic log context.
+ * @param correlationId Optional correlation Id
  * @returns Basic log context.
  */
-function generateBaseContext() {
+function generateBaseContext(correlationId) {
     return {
         timestamp: new Date().toISOString(),
+        correlationId,
     };
 }
 exports.generateBaseContext = generateBaseContext;

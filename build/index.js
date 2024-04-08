@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createLoggerMiddleware = exports.generateBaseContext = exports.enrichContext = exports.formatMessage = exports.HttpTransport = exports.FileTransport = exports.ConsoleTransport = exports.Logger = void 0;
+exports.createLoggerMiddleware = exports.generateBaseContext = exports.enrichContext = exports.formatMessage = exports.ElasticsearchTransport = exports.HttpTransport = exports.FileTransport = exports.ConsoleTransport = exports.Logger = void 0;
 var logger_1 = require("./logger");
 Object.defineProperty(exports, "Logger", { enumerable: true, get: function () { return logger_1.Logger; } });
 var console_1 = require("./transports/console");
@@ -9,6 +9,8 @@ var file_1 = require("./transports/file");
 Object.defineProperty(exports, "FileTransport", { enumerable: true, get: function () { return file_1.FileTransport; } });
 var http_1 = require("./transports/http");
 Object.defineProperty(exports, "HttpTransport", { enumerable: true, get: function () { return http_1.HttpTransport; } });
+var elasticsearch_1 = require("./transports/elasticsearch");
+Object.defineProperty(exports, "ElasticsearchTransport", { enumerable: true, get: function () { return elasticsearch_1.ElasticsearchTransport; } });
 var formatter_1 = require("./utils/formatter");
 Object.defineProperty(exports, "formatMessage", { enumerable: true, get: function () { return formatter_1.formatMessage; } });
 var context_1 = require("./utils/context");

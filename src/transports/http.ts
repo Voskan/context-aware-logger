@@ -1,5 +1,6 @@
 import { LoggerTransport } from "../utils/types";
 import fetch from "node-fetch";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * HttpTransport - class for sending logs to a remote server via HTTP.
@@ -31,10 +32,12 @@ export class HttpTransport implements LoggerTransport {
    * @param level - Log level
    */
   async log(message: string, level: string): Promise<void> {
+    const correlationId = this.headers["x-correlation-id"] || uuidv4();
+
     try {
       const response = await fetch(this.endpoint, {
         method: this.method,
-        headers: this.headers,
+        headers: { ...this.headers, correlationId },
         body: JSON.stringify({ message, level }),
       });
 

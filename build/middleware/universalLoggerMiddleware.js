@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createLoggerMiddleware = void 0;
+const uuid_1 = require("uuid");
 /**
  * Function for creating middleware compatible with Express/Koa/Fastify.
  * @param logger
@@ -19,11 +20,16 @@ function createLoggerMiddleware(logger) {
     return function loggerMiddleware(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const start = Date.now();
+            const correlationId = req.headers["x-correlation-id"] || (0, uuid_1.v4)();
+            req.correlationId = correlationId;
             logger.info(`Incoming request: ${req.method} ${req.url || req.path}`);
             function logResponse() {
                 const duration = Date.now() - start;
                 logger.info(`Request processed: ${req.method} ${req.url || req.path} - ${res.statusCode} [${duration}ms]`);
             }
+            req.log = (message) => {
+                logger.info(message, { correlationId });
+            };
             res.on("finish", logResponse);
             res.on("close", () => {
                 logger.warn(`Request terminated prematurely: ${req.method} ${req.url || req.path}`);
