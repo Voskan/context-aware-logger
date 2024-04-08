@@ -4,11 +4,14 @@ A flexible and context-aware logging module for Node.js applications, providing 
 
 ## Features
 
-- **Context-Aware Logging**: Automatically enriches logs with contextual information, including timestamps, file names, line numbers, and custom data.
+- **Context-Aware Logging**: Automatically enriches logs with contextual information, including **request IDs**, timestamps, file names, line numbers, and custom data.
 - **Multiple Transports**: Easily log messages to the console, files, or via HTTP to a remote logging service.
+- **Distributed Logging**: Integrate effortlessly with **ELK Stack** for centralized logging in microservices environments.
+- **Tracing and Correlation IDs**: Simplify debugging across services with support for correlation IDs.
 - **Buffered File Logging**: Enhances performance by buffering log messages and writing them in batches to the disk.
 - **Framework Integration**: Offers easy integration with popular frameworks like Express.js, Koa, Fastify, NestJS, etc.
 - **Flexible and Configurable**: Configure log levels, message formats, and more to suit your needs.
+- **Performance Optimized**: Features like log buffering and asynchronous writing ensure minimal impact on application performance.
 - **TypeScript Support**: Fully typed for TypeScript users for a better development experience.
 
 ## Installation
@@ -25,7 +28,7 @@ This section covers more advanced usage scenarios, including using different tra
 
 ### Using Different Transports
 
-### File Transport
+## File Transport
 
 The FileTransport allows logging messages to a file in various popular formats, including plain text **.log** files and structured .**json** files. It also supports buffered writing for improved performance.
 
@@ -49,7 +52,7 @@ logger.info("Logging message to a file");
 - **maxBufferSize**: Maximum buffer size in bytes before flushing to the file. Default is 10KB.
 - **flushInterval**: Time in milliseconds to flush the buffer to the file periodically. Default is 5000ms (5 seconds).
 
-### HTTP Transport
+## HTTP Transport
 
 To send log messages to a remote logging service:
 
@@ -60,6 +63,66 @@ const logger = new Logger();
 logger.addTransport(new HttpTransport("http://your-logging-endpoint.com/logs"));
 
 logger.error("Sending an error log to the remote server");
+```
+
+## Console Transport
+
+Logging message in console:
+
+```typescript
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
+
+const logger = new Logger();
+logger.addTransport(new ConsoleTransport());
+
+logger.info("Request received", baseContext);
+```
+
+## Elasticsearch Integration for Context-Aware Logger
+
+Integrate your logging with Elasticsearch to centralize log management in a scalable way. This guide covers setting up the `ElasticsearchTransport` to send logs directly to your Elasticsearch cluster.
+
+## Configuration
+
+```typescript
+import { Logger, ElasticsearchTransport } from "@voskan/context-aware-logger";
+
+const esTransport = new ElasticsearchTransport({
+  node: "http://localhost:9200",
+  auth: {
+    username: "elastic",
+    password: "password",
+  },
+});
+
+const logger = new Logger();
+logger.addTransport(esTransport);
+
+logger.info("Log message sent to Elasticsearch");
+```
+
+## Distributed Tracing
+
+### Implementing Distributed Tracing
+
+Understanding the flow of requests across services is crucial in microservices architectures. The Context-Aware Logger supports Correlation IDs for distributed tracing, making it easier to track the lifecycle of requests.
+
+### Adding Correlation IDs
+
+```typescript
+import {
+  Logger,
+  ConsoleTransport,
+  generateBaseContext,
+} from "@voskan/context-aware-logger";
+
+const logger = new Logger();
+logger.addTransport(new ConsoleTransport());
+
+const correlationId = "123456789";
+const baseContext = generateBaseContext(correlationId);
+
+logger.info("Request received", baseContext);
 ```
 
 ## Framework Integrations
@@ -119,7 +182,7 @@ To integrate with Fastify and log all incoming requests:
 
 ```typescript
 import Fastify from "fastify";
-import { Logger, ConsoleTransport } from "@voskan/context-aware-logger;
+import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
 
 const fastify = Fastify();
 const logger = new Logger();

@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { Logger } from "../logger";
 
 /**
@@ -8,6 +9,8 @@ import { Logger } from "../logger";
 export function createLoggerMiddleware(logger: Logger) {
   return async function loggerMiddleware(req: any, res: any, next?: any) {
     const start = Date.now();
+    const correlationId = req.headers["x-correlation-id"] || uuidv4();
+    req.correlationId = correlationId;
 
     logger.info(`Incoming request: ${req.method} ${req.url || req.path}`);
 
@@ -19,6 +22,10 @@ export function createLoggerMiddleware(logger: Logger) {
         } [${duration}ms]`
       );
     }
+
+    req.log = (message: string) => {
+      logger.info(message, { correlationId });
+    };
 
     res.on("finish", logResponse);
     res.on("close", () => {

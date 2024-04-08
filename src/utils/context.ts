@@ -3,16 +3,19 @@
  */
 export interface LogContext {
   timestamp?: string;
+  correlationId?: string;
   [key: string]: any;
 }
 
 /**
  * Generates a basic log context.
+ * @param correlationId Optional correlation Id
  * @returns Basic log context.
  */
-export function generateBaseContext(): LogContext {
+export function generateBaseContext(correlationId?: string): LogContext {
   return {
     timestamp: new Date().toISOString(),
+    correlationId,
   };
 }
 

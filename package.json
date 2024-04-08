@@ -1,7 +1,7 @@
 {
   "name": "@voskan/context-aware-logger",
   "version": "1.0.15",
-  "description": "A flexible and context-aware logging module for Node.js applications. It supports multiple transports (console, file, HTTP), and enriches log messages with contextual information like timestamps, request IDs, and custom data. Ideal for both development and production use. Easy to integrate with Express, Fastify, Koa, NestJS, and other frameworks.",
+  "description": "A flexible and context-aware logging module for Node.js applications. It supports multiple transports (console, file, HTTP, Elasticsearch), and enriches log messages with contextual information like timestamps, request IDs, and custom data. Ideal for both development and production use. Easy to integrate with Express, Fastify, Koa, NestJS, and other frameworks.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -36,7 +36,11 @@
     "koa logger",
     "color logger",
     "middleware logger",
-    "nodejs logger"
+    "nodejs logger",
+    "elasticsearch",
+    "ELK logger",
+    "elasticsearch logging",
+    "elasticsearch logger"
   ],
   "author": "Voskan Voskanyan <voskan1989@gmail.com>",
   "license": "MIT",
@@ -46,12 +50,15 @@
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.0",
     "@types/node-fetch": "^2.6.11",
+    "@types/uuid": "^9.0.8",
     "del-cli": "^5.1.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.0.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "node-fetch": "^2.7.0"
+    "@elastic/elasticsearch": "^8.13.0",
+    "node-fetch": "^2.7.0",
+    "uuid": "^9.0.1"
   }
 }
