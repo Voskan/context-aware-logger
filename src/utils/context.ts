@@ -15,7 +15,7 @@ export interface LogContext {
 export function generateBaseContext(correlationId?: string): LogContext {
   return {
     timestamp: new Date().toISOString(),
-    correlationId,
+    correlationId: correlationId ? correlationId : "",
   };
 }
 

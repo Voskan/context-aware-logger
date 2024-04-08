@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HttpTransport = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
+const uuid_1 = require("uuid");
 /**
  * HttpTransport - class for sending logs to a remote server via HTTP.
  */
@@ -36,10 +37,11 @@ class HttpTransport {
      */
     log(message, level) {
         return __awaiter(this, void 0, void 0, function* () {
+            const correlationId = this.headers["x-correlation-id"] || (0, uuid_1.v4)();
             try {
                 const response = yield (0, node_fetch_1.default)(this.endpoint, {
                     method: this.method,
-                    headers: this.headers,
+                    headers: Object.assign(Object.assign({}, this.headers), { correlationId }),
                     body: JSON.stringify({ message, level }),
                 });
                 if (!response.ok) {
