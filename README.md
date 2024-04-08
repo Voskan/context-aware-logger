@@ -1,4 +1,4 @@
-# @voskan/context-aware-logger
+# Context-Aware Logger
 
 A flexible and context-aware logging module for Node.js applications, providing powerful logging capabilities with enriched context information like timestamps, request IDs, and custom data. Supports multiple transports including console, file, and HTTP, making it ideal for both development and production environments.
 
@@ -6,7 +6,7 @@ A flexible and context-aware logging module for Node.js applications, providing 
 
 - **Context-Aware Logging**: Automatically enriches logs with contextual information, including timestamps, file names, line numbers, and custom data.
 - **Multiple Transports**: Easily log messages to the console, files, or via HTTP to a remote logging service.
-- **Framework Integration**: Offers easy integration with popular frameworks like Express, Koa, etc.
+- **Framework Integration**: Offers easy integration with popular frameworks like Express.js, Koa, Fastify, NestJS, etc.
 - **Flexible and Configurable**: Configure log levels, message formats, and more to suit your needs.
 - **TypeScript Support**: Fully typed for TypeScript users for a better development experience.
 
@@ -26,13 +26,18 @@ This section covers more advanced usage scenarios, including using different tra
 
 #### File Transport
 
-To log messages to a specific file:
+The FileTransport allows logging messages to a file in various popular formats, including plain text .log files and structured .json files. This flexibility enables logs to be easily parsed and processed for further analysis or monitoring.
+
+To log messages to a specific file, specify the file path and the desired format when creating the FileTransport:
 
 ```typescript
 import { Logger, FileTransport } from "@voskan/context-aware-logger";
 
 const logger = new Logger();
+// For plain text logs
 logger.addTransport(new FileTransport("./logs/app.log"));
+// For JSON formatted logs
+logger.addTransport(new FileTransport("./logs/app.json"));
 
 logger.info("Logging message to a file");
 ```

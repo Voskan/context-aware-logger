@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { LoggerTransport } from "../utils/types";
+import { LoggerTransport, LogLevel, LogContext } from "../utils/types";
 import { formatMessage } from "../utils/formatter";
 
 /**
@@ -17,13 +17,52 @@ export class FileTransport implements LoggerTransport {
   }
 
   /**
+   * Returns a formatter based on the file extension.
+   */
+  private formatMessageForFile(
+    message: string,
+    level: LogLevel,
+    context?: LogContext
+  ): string {
+    const fileExtension = this.filePath.split(".").pop();
+
+    switch (fileExtension) {
+      case "json":
+        return JSON.stringify({
+          level,
+          message,
+          timestamp: new Date().toISOString(),
+          ...context,
+        });
+      case "log":
+      case "txt":
+      default:
+        const contextString = context
+          ? Object.keys(context)
+              .map((key) => `${key}: ${context[key]}`)
+              .join(", ")
+          : "";
+        return `[${new Date().toISOString()}] [${level.toUpperCase()}] ${message} {${contextString}}`;
+    }
+  }
+
+  /**
    * Asynchronously writes a log message to a file, ensuring the file is created if it does not exist.
    * @param message - Log message.
    * @param level - Log level
    */
-  async log(message: string, level: string): Promise<void> {
+  async log(
+    message: string,
+    level: LogLevel,
+    context?: LogContext
+  ): Promise<void> {
     try {
-      const formattedMessage = formatMessage(message, level);
+      // const formattedMessage = formatMessage(message, level);
+      const formattedMessage = this.formatMessageForFile(
+        message,
+        level,
+        context
+      );
 
       // Ensure the file is opened for appending, which creates the file if it does not exist.
       const fileHandle = await fs.open(this.filePath, "a");
