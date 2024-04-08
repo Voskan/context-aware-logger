@@ -26,7 +26,7 @@ npm install @voskan/context-aware-logger
 
 This section covers more advanced usage scenarios, including using different transports and integrating the logger with various Node.js frameworks.
 
-### Using Different Transports
+## Using Different Transports
 
 ## File Transport
 
@@ -75,7 +75,7 @@ import { Logger, ConsoleTransport } from "@voskan/context-aware-logger";
 const logger = new Logger();
 logger.addTransport(new ConsoleTransport());
 
-logger.info("Request received", baseContext);
+logger.info("Request received");
 ```
 
 ## Elasticsearch Integration for Context-Aware Logger

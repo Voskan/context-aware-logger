@@ -7,10 +7,12 @@ exports.enrichContext = exports.generateBaseContext = void 0;
  * @returns Basic log context.
  */
 function generateBaseContext(correlationId) {
-    return {
+    const baseContext = {
         timestamp: new Date().toISOString(),
-        correlationId: correlationId ? correlationId : "",
     };
+    if (correlationId)
+        baseContext[correlationId] = correlationId;
+    return baseContext;
 }
 exports.generateBaseContext = generateBaseContext;
 /**

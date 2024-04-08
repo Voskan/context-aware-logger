@@ -37,7 +37,7 @@ class HttpTransport {
      */
     log(message, level) {
         return __awaiter(this, void 0, void 0, function* () {
-            const correlationId = this.headers["x-correlation-id"] || (0, uuid_1.v4)();
+            const correlationId = (this.headers && this.headers["x-correlation-id"]) || (0, uuid_1.v4)();
             try {
                 const response = yield (0, node_fetch_1.default)(this.endpoint, {
                     method: this.method,
