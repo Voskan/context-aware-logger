@@ -24,7 +24,7 @@ This section covers more advanced usage scenarios, including using different tra
 
 ### Using Different Transports
 
-#### File Transport
+### File Transport
 
 The FileTransport allows logging messages to a file in various popular formats, including plain text .log files and structured .json files. This flexibility enables logs to be easily parsed and processed for further analysis or monitoring.
 
