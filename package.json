@@ -38,9 +38,10 @@
     "middleware logger",
     "nodejs logger",
     "elasticsearch",
-    "ELK logger",
+    "ELK Stack",
     "elasticsearch logging",
-    "elasticsearch logger"
+    "elasticsearch logger",
+    "elastic"
   ],
   "author": "Voskan Voskanyan <voskan1989@gmail.com>",
   "license": "MIT",
