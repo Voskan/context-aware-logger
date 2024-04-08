@@ -13,10 +13,13 @@ export interface LogContext {
  * @returns Basic log context.
  */
 export function generateBaseContext(correlationId?: string): LogContext {
-  return {
+  const baseContext: any = {
     timestamp: new Date().toISOString(),
-    correlationId: correlationId ? correlationId : "",
   };
+
+  if (correlationId) baseContext[correlationId] = correlationId;
+
+  return baseContext;
 }
 
 /**

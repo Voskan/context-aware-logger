@@ -32,7 +32,8 @@ export class HttpTransport implements LoggerTransport {
    * @param level - Log level
    */
   async log(message: string, level: string): Promise<void> {
-    const correlationId = this.headers["x-correlation-id"] || uuidv4();
+    const correlationId =
+      (this.headers && this.headers["x-correlation-id"]) || uuidv4();
 
     try {
       const response = await fetch(this.endpoint, {

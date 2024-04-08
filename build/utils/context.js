@@ -9,7 +9,7 @@ exports.enrichContext = exports.generateBaseContext = void 0;
 function generateBaseContext(correlationId) {
     return {
         timestamp: new Date().toISOString(),
-        correlationId,
+        correlationId: correlationId ? correlationId : "",
     };
 }
 exports.generateBaseContext = generateBaseContext;
