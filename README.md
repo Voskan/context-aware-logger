@@ -6,6 +6,7 @@ A flexible and context-aware logging module for Node.js applications, providing 
 
 - **Context-Aware Logging**: Automatically enriches logs with contextual information, including timestamps, file names, line numbers, and custom data.
 - **Multiple Transports**: Easily log messages to the console, files, or via HTTP to a remote logging service.
+- **Buffered File Logging**: Enhances performance by buffering log messages and writing them in batches to the disk.
 - **Framework Integration**: Offers easy integration with popular frameworks like Express.js, Koa, Fastify, NestJS, etc.
 - **Flexible and Configurable**: Configure log levels, message formats, and more to suit your needs.
 - **TypeScript Support**: Fully typed for TypeScript users for a better development experience.
@@ -26,21 +27,27 @@ This section covers more advanced usage scenarios, including using different tra
 
 ### File Transport
 
-The FileTransport allows logging messages to a file in various popular formats, including plain text .log files and structured .json files. This flexibility enables logs to be easily parsed and processed for further analysis or monitoring.
+The FileTransport allows logging messages to a file in various popular formats, including plain text **.log** files and structured .**json** files. It also supports buffered writing for improved performance.
 
-To log messages to a specific file, specify the file path and the desired format when creating the FileTransport:
+To configure FileTransport with buffering:
 
 ```typescript
 import { Logger, FileTransport } from "@voskan/context-aware-logger";
 
 const logger = new Logger();
 // For plain text logs
-logger.addTransport(new FileTransport("./logs/app.log"));
+const fileTransport = new FileTransport("./logs/app.log", 1024 * 50, 10000); // Buffer size of 50KB and flush every 10 seconds
 // For JSON formatted logs
-logger.addTransport(new FileTransport("./logs/app.json"));
+logger.addTransport(new FileTransport("./logs/app.json")); // Default: Buffer size of 10KB and flush every 5 seconds
 
 logger.info("Logging message to a file");
 ```
+
+#### Parameters:
+
+- **filePath**: Path to the log file.
+- **maxBufferSize**: Maximum buffer size in bytes before flushing to the file. Default is 10KB.
+- **flushInterval**: Time in milliseconds to flush the buffer to the file periodically. Default is 5000ms (5 seconds).
 
 ### HTTP Transport
 
